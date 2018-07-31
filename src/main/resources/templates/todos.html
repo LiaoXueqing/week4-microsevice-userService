@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>my todos</title>
+
+</head>
+<body>
+
+<table>
+    <th:block th:each="todoItem:${todos}">
+        <tr>
+            <td th:text="${todoItem.id}"></td>
+            <td th:text="${todoItem.todo}"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
