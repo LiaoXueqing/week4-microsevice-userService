@@ -15,6 +15,8 @@ public class TodoService {
         return todoRepository.findAll();
     }
     public void save(TodoItem todoItem){
+
+        todoItem.getTasks().forEach(task->task.setTodo(todoItem));
         todoRepository.save(todoItem);
     }
     public TodoItem findOne(Integer id){
@@ -24,4 +26,9 @@ public class TodoService {
         todoRepository.delete(id);
     }
 
+    public void update(Integer id,TodoItem todo) {
+        if(todoRepository.exists(id)){
+            todoRepository.save(todo);
+        }
+    }
 }

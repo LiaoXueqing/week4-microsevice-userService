@@ -5,4 +5,6 @@ values
 ("todo 3",false,false,NOW()),
 ("todo 4",false,false,NOW()),
 ("todo 5",false,false,NOW()),
-("todo 6",false,false,NOW());
+("todo 6",false,false,NOW()),
+("todo 7",true,false,NOW()),
+("todo 8",true,false,NOW());
