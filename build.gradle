@@ -22,12 +22,13 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
-	// https://mvnrepository.com/artifact/com.google.guava/guava
+    compile('mysql:mysql-connector-java')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly('org.projectlombok:lombok')
+	compile('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile('org.flywaydb:flyway-core:5.0.7')
 }

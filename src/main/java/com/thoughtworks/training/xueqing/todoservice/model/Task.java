@@ -1,5 +1,6 @@
 package com.thoughtworks.training.xueqing.todoservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,25 +10,23 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "todo")
-//@Where(clause = "deleted = false")
-public class TodoItem {
+@Table(name = "task")
+public class Task {
     @Id
     @GeneratedValue
     private int id;
-    private String name;
-    private Boolean status;
-    private Boolean completed;
-    private String time;
-    @OneToMany(cascade={CascadeType.REMOVE},mappedBy="todo")
-    private List<Task> tasks;
+    private String content;
+    @ManyToOne()
+    @JoinColumn(name="todo_id")
+    @JsonIgnore
+    private TodoItem todo;
 }
