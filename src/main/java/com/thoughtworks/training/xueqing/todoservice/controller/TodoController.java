@@ -1,7 +1,5 @@
 package com.thoughtworks.training.xueqing.todoservice.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.training.xueqing.todoservice.model.TodoItem;
 import com.thoughtworks.training.xueqing.todoservice.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +29,19 @@ public class TodoController {
     public void delete(@PathVariable Integer id){
         todoService.delete(id);
     }
-    @PutMapping("/todos")
-    public void delete(@RequestBody Integer id,@RequestBody TodoItem todo){
+
+    @PutMapping("/todos/{id}")
+    public void update(@PathVariable Integer id,@RequestBody TodoItem todo){
         todoService.update(id,todo);
+    }
+
+    @PutMapping("/todos/completed/{id}")
+    public void completed(@PathVariable Integer id){
+        todoService.completed(id);
+    }
+    @PutMapping("/todos/deleted/{id}")
+    public void deleted(@PathVariable Integer id){
+        todoService.deleted(id);
     }
 
 }

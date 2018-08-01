@@ -31,4 +31,15 @@ public class TodoService {
             todoRepository.save(todo);
         }
     }
+
+    public void completed(Integer id) {
+        TodoItem todo = todoRepository.findOne(id);
+        todo.setCompleted(!todo.getCompleted());
+        todoRepository.save(todo);
+    }
+    public void deleted(Integer id) {
+        TodoItem todo = todoRepository.findOne(id);
+        todo.setStatus(!todo.getStatus());
+        todoRepository.save(todo);
+    }
 }
