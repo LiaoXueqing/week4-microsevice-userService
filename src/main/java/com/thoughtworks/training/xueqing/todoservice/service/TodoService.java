@@ -16,7 +16,7 @@ public class TodoService {
     }
     public void save(TodoItem todoItem){
 
-        todoItem.getTasks().forEach(task->task.setTodo(todoItem));
+//        todoItem.getTasks().forEach(task->task.setTodo(todoItem));
         todoRepository.save(todoItem);
     }
     public TodoItem findOne(Integer id){
@@ -35,11 +35,14 @@ public class TodoService {
     public void completed(Integer id) {
         TodoItem todo = todoRepository.findOne(id);
         todo.setCompleted(!todo.getCompleted());
+        System.out.println(todo.getId()+" "+todo.getCompleted());
         todoRepository.save(todo);
     }
     public void deleted(Integer id) {
         TodoItem todo = todoRepository.findOne(id);
+        System.out.println(todo.getStatus());
         todo.setStatus(!todo.getStatus());
+        System.out.println(todo.getStatus());
         todoRepository.save(todo);
     }
 }

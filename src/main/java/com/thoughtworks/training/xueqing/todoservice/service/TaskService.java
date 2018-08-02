@@ -1,9 +1,7 @@
 package com.thoughtworks.training.xueqing.todoservice.service;
 
 import com.thoughtworks.training.xueqing.todoservice.model.Task;
-import com.thoughtworks.training.xueqing.todoservice.model.TodoItem;
 import com.thoughtworks.training.xueqing.todoservice.repository.TaskRepository;
-import com.thoughtworks.training.xueqing.todoservice.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

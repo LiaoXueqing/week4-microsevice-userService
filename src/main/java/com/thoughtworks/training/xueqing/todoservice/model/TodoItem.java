@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -29,6 +30,11 @@ public class TodoItem {
     private Boolean status;
     private Boolean completed;
     private String time;
-    @OneToMany(cascade={CascadeType.ALL},mappedBy="todo")
+
+
+//    @OneToMany(cascade={CascadeType.ALL},mappedBy="todo")
+
+    @OneToMany(cascade={CascadeType.ALL})
+    @JoinColumn(name="todo_id")
     private List<Task> tasks;
 }
