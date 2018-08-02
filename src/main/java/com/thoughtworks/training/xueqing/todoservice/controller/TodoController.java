@@ -9,40 +9,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/todos")
 public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/todos")
-    public List<TodoItem> get() throws IOException {
-        return todoService.find();
+    @GetMapping
+    public List<TodoItem> getTodos(Principal user) {
+        return todoService.findAll(user.getName());
     }
-    @GetMapping("/todos/{id}")
-    public TodoItem getOne(@PathVariable Integer id) throws IOException {
-        return todoService.findOne(id);
+
+    @GetMapping("/{id}")
+    public TodoItem getOneById(@PathVariable Integer id, Principal user) {
+        return todoService.findById(id, user.getName());
     }
-    @PostMapping("/todos")
-    public void save(@RequestBody TodoItem todoItem){
+
+    @PostMapping
+    public void save(@RequestBody TodoItem todoItem) {
         todoService.save(todoItem);
     }
 
-    @PutMapping("/todos/{id}")
-    public void update(@PathVariable Integer id,@RequestBody TodoItem todo){
-        todoService.update(id,todo);
+    @PutMapping("/{id}")
+    public void update(@PathVariable Integer id, @RequestBody TodoItem todo) {
+        todoService.update(id, todo);
     }
 
-    @PutMapping("/todos/completed/{id}")
-    public void completed(@PathVariable Integer id){
+    @PutMapping("/completed/{id}")
+    public void completed(@PathVariable Integer id) {
         todoService.completed(id);
     }
-    @DeleteMapping("/todos/{id}")
-    public void deleted(@PathVariable Integer id){
+
+    @DeleteMapping("/{id}")
+    public void deleted(@PathVariable Integer id) {
         todoService.deleted(id);
     }
 

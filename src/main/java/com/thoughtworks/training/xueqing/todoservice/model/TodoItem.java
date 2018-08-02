@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,19 +22,17 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "todo")
-@Where(clause = "status = true")
+@Where(clause = "deleted = false")
 public class TodoItem {
     @Id
     @GeneratedValue
     private int id;
     private String name;
-    private Boolean status;
+    private Boolean deleted;
     private Boolean completed;
     private String time;
-
-
-//    @OneToMany(cascade={CascadeType.ALL},mappedBy="todo")
-
+    @Column(columnDefinition = "user_id")
+    private int userId;
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="todo_id")
     private List<Task> tasks;

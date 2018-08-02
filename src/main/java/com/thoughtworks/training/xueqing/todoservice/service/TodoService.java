@@ -8,41 +8,53 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class TodoService {
-    @Autowired
-    TodoRepository todoRepository;
 
-    public List<TodoItem> find() {
+    private final TodoRepository todoRepository;
+    private final UserService userService;
+    @Autowired
+    public TodoService(TodoRepository todoRepository, UserService userService) {
+        this.todoRepository = todoRepository;
+        this.userService = userService;
+    }
+
+
+
+    public List<TodoItem> findAll() {
         return todoRepository.findAll();
     }
-    public void save(TodoItem todoItem){
 
-//        todoItem.getTasks().forEach(task->task.setTodo(todoItem));
+    public List<TodoItem> findAll(String name){
+        return todoRepository.findAllByUserIdEquals(userService.findByName(name).getId());
+    }
+
+    public void save(TodoItem todoItem){
         todoRepository.save(todoItem);
     }
-    public TodoItem findOne(Integer id){
+    public TodoItem findById(Integer id){
         return todoRepository.findOne(id);
     }
-    public void delete(Integer id){
-        todoRepository.delete(id);
+    public TodoItem findById(Integer id,String name){
+        return todoRepository.findByIdEqualsAndUserIdEquals(id, userService.findByName(name).getId());
     }
 
-    public void update(Integer id,TodoItem todo) {
-        if(todoRepository.exists(id)){
-            todoRepository.save(todo);
-        }
+    public TodoItem update(Integer id,TodoItem newtodo) {
+        TodoItem todo = todoRepository.findOne(id);
+        todo.setName(newtodo.getName());
+        todo.setCompleted(newtodo.getCompleted());
+        todo.setDeleted(newtodo.getDeleted());
+        todo.setTime(newtodo.getTime());
+        todo.setTasks(newtodo.getTasks());
+        return todoRepository.save(todo);
     }
 
     public void completed(Integer id) {
         TodoItem todo = todoRepository.findOne(id);
         todo.setCompleted(!todo.getCompleted());
-        System.out.println(todo.getId()+" "+todo.getCompleted());
         todoRepository.save(todo);
     }
     public void deleted(Integer id) {
         TodoItem todo = todoRepository.findOne(id);
-        System.out.println(todo.getStatus());
-        todo.setStatus(!todo.getStatus());
-        System.out.println(todo.getStatus());
+        todo.setDeleted(!todo.getDeleted());
         todoRepository.save(todo);
     }
 }
