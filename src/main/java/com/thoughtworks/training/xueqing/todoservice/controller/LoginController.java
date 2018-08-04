@@ -16,10 +16,11 @@ public class LoginController {
 
     @PostMapping
     public String login(@RequestBody User user){
-        boolean verify = userService.verify(user.getName(), user.getPassword());
-        if(verify){
+        boolean verifyFlag = userService.verify(user.getName(), user.getPassword());
+        if(verifyFlag){
             //生成token
             String token = userService.generateToken(user.getName());
+            System.out.println("------token------\n"+token);
             return token;
         }
         return null;

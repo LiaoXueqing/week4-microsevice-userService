@@ -31,9 +31,11 @@ public class TodoAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        request.getHeader(HttpHeaders.AUTHORIZATION);
+
         if (!StringUtils.isEmpty(token)) {
+            System.out.println("------doFilterInternal------\n"+token);
             try {
                 String name = (String) Jwts.parser()
                         .setSigningKey(secretKey.getBytes())
