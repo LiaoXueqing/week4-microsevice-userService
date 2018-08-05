@@ -22,18 +22,18 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "todo")
 @Where(clause = "deleted = false")
-public class TodoItem {
+@Table(name = "todo")
+public class Todo {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
     private Boolean deleted;
     private Boolean completed;
     private Date time;
     @Column(columnDefinition = "user_id")
-    private int userId;
+    private Integer userId;
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="todo_id")
     private List<Task> tasks;

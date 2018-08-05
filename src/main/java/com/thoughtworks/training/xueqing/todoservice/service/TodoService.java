@@ -1,11 +1,10 @@
 package com.thoughtworks.training.xueqing.todoservice.service;
 
-import com.thoughtworks.training.xueqing.todoservice.model.TodoItem;
+import com.thoughtworks.training.xueqing.todoservice.model.Todo;
 import com.thoughtworks.training.xueqing.todoservice.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -21,29 +20,28 @@ public class TodoService {
 
 
 
-    public List<TodoItem> findAll() {
+    public List<Todo> findAll() {
         return todoRepository.findAll();
     }
 
-    public List<TodoItem> findAll(String name){
+    public List<Todo> findAll(String name){
         return todoRepository.findAllByUserIdEquals(userService.findByName(name).getId());
     }
 
-    public void save(TodoItem todoItem){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-        String time = formatter.format(new Date());
-        todoItem.setTime(new Date());
-        todoRepository.save(todoItem);
+    public Todo save(Todo todo){
+        todo.setTime(new Date());
+        System.out.println("----"+ todo);
+        return todoRepository.save(todo);
     }
-    public TodoItem findById(Integer id){
+    public Todo findById(Integer id){
         return todoRepository.findOne(id);
     }
-    public TodoItem findById(Integer id,String name){
+    public Todo findById(Integer id, String name){
         return todoRepository.findByIdEqualsAndUserIdEquals(id, userService.findByName(name).getId());
     }
 
-    public TodoItem update(Integer id,TodoItem newtodo) {
-        TodoItem todo = todoRepository.findOne(id);
+    public Todo update(Integer id, Todo newtodo) {
+        Todo todo = todoRepository.findOne(id);
         todo.setName(newtodo.getName());
         todo.setCompleted(newtodo.getCompleted());
         todo.setDeleted(newtodo.getDeleted());
@@ -53,12 +51,12 @@ public class TodoService {
     }
 
     public void completed(Integer id) {
-        TodoItem todo = todoRepository.findOne(id);
+        Todo todo = todoRepository.findOne(id);
         todo.setCompleted(!todo.getCompleted());
         todoRepository.save(todo);
     }
     public void deleted(Integer id) {
-        TodoItem todo = todoRepository.findOne(id);
+        Todo todo = todoRepository.findOne(id);
         todo.setDeleted(!todo.getDeleted());
         todoRepository.save(todo);
     }

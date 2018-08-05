@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,11 +20,12 @@ import javax.persistence.Table;
 public class Task {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String content;
 //    @ManyToOne()
 //    @JoinColumn(name="todo_id")
 //    @JsonIgnore
-//    private TodoItem todo;
-    private int todo_id;
+//    private Todo todo;
+@Column(columnDefinition = "todo_id")
+private Integer todo_id;
 }

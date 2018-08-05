@@ -1,6 +1,6 @@
 package com.thoughtworks.training.xueqing.todoservice.controller;
 
-import com.thoughtworks.training.xueqing.todoservice.model.TodoItem;
+import com.thoughtworks.training.xueqing.todoservice.model.Todo;
 import com.thoughtworks.training.xueqing.todoservice.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,22 +22,23 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public List<TodoItem> getTodos(Principal user) {
+    public List<Todo> getTodos(Principal user) {
         return todoService.findAll(user.getName());
     }
 
     @GetMapping("/{id}")
-    public TodoItem getOneById(@PathVariable Integer id, Principal user) {
+    public Todo getOneById(@PathVariable Integer id, Principal user) {
         return todoService.findById(id, user.getName());
     }
 
     @PostMapping
-    public void save(@RequestBody TodoItem todoItem) {
-        todoService.save(todoItem);
+    public Todo save(@RequestBody Todo todo) {
+        System.out.println("+++"+ todo);
+        return todoService.save(todo);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Integer id, @RequestBody TodoItem todo) {
+    public void update(@PathVariable Integer id, @RequestBody Todo todo) {
         todoService.update(id, todo);
     }
 
