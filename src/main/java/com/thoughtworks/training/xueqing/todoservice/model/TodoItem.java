@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -30,7 +31,7 @@ public class TodoItem {
     private String name;
     private Boolean deleted;
     private Boolean completed;
-    private String time;
+    private Date time;
     @Column(columnDefinition = "user_id")
     private int userId;
     @OneToMany(cascade={CascadeType.ALL})

@@ -32,7 +32,7 @@ public class TodoService {
     public void save(TodoItem todoItem){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         String time = formatter.format(new Date());
-        todoItem.setTime(time);
+        todoItem.setTime(new Date());
         todoRepository.save(todoItem);
     }
     public TodoItem findById(Integer id){

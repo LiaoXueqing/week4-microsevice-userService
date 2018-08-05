@@ -9,9 +9,9 @@ public class PasswordTest {
     @Test
     public void shouldEncryPassword(){
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-        String encodedpassword = encoder.encode("password");
+        String encodedPassword = encoder.encode("password");
         boolean matches = encoder
-                .matches("password",encodedpassword);
+                .matches("password",encodedPassword);
         assertTrue(matches);
         
     }
