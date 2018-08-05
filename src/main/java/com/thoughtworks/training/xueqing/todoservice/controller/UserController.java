@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,9 +25,9 @@ public class UserController {
         userService.save(user);
     }
 
-    @GetMapping
-    public List<User> get() {
-        return userService.findAll();
+    @GetMapping("/logged")
+    public User getLoggedUser(Principal user){
+        return userService.findByName(user.getName());
     }
     @GetMapping("/{id}")
     public User getOne(@PathVariable Integer id){

@@ -5,6 +5,8 @@ import com.thoughtworks.training.xueqing.todoservice.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Service
 public class TodoService {
@@ -28,6 +30,9 @@ public class TodoService {
     }
 
     public void save(TodoItem todoItem){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        String time = formatter.format(new Date());
+        todoItem.setTime(time);
         todoRepository.save(todoItem);
     }
     public TodoItem findById(Integer id){
