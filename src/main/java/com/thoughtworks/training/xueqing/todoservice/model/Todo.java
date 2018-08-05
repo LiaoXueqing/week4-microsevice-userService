@@ -32,10 +32,10 @@ public class Todo {
     private Boolean deleted;
     private Boolean completed;
     private Date time;
+    @Column(name = "user_id")
+    private Integer userId;
+
     @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="todo_id")
     private List<Task> tasks;
-
-    @Column(name = "user_id")
-    private Integer userId;
 }
