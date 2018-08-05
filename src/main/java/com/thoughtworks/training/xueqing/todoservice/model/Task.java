@@ -22,10 +22,6 @@ public class Task {
     @GeneratedValue
     private Integer id;
     private String content;
-//    @ManyToOne()
-//    @JoinColumn(name="todo_id")
-//    @JsonIgnore
-//    private Todo todo;
-@Column(columnDefinition = "todo_id")
-private Integer todo_id;
+    @Column(name = "todo_id")
+    private Integer todo_id;
 }
