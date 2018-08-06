@@ -1,15 +1,9 @@
 package com.thoughtworks.training.xueqing.todoservice;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.training.xueqing.todoservice.model.User;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.Resource;
-import java.io.File;
-import java.util.List;
 
 
 @SpringBootApplication
