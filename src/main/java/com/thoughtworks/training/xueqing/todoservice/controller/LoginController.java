@@ -19,8 +19,9 @@ public class LoginController {
         boolean verifyFlag = userService.verify(user.getName(), user.getPassword());
         if(verifyFlag){
             //生成token
-            String token = userService.generateToken(user.getName());
-            System.out.println("------token------\n"+token);
+            User loggedUser = userService.findByName(user.getName());
+            String token = userService.generateToken(loggedUser.getId(),loggedUser.getName());
+            System.out.println("------token------"+token);
             return token;
         }
         return null;

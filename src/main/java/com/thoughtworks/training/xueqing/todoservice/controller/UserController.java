@@ -3,6 +3,8 @@ package com.thoughtworks.training.xueqing.todoservice.controller;
 import com.thoughtworks.training.xueqing.todoservice.model.User;
 import com.thoughtworks.training.xueqing.todoservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -24,6 +27,19 @@ public class UserController {
         userService.save(user);
     }
 
+    @PostMapping("/verifications")
+    public ResponseEntity verifyToken(@RequestBody String token){
+        System.out.println("verify---"+token);
+        try{
+            return ResponseEntity.ok(userService.getUserByToken(token));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
+    @GetMapping
+    public List<User> list(){
+        return userService.findAll();
+    }
     @GetMapping("/logged")
     public User getLoggedUser(Principal user){
         return userService.findByName(user.getName());

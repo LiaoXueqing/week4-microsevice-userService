@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,9 +60,12 @@ public class UserService {
         return matches;
     }
 
-    public String generateToken(String name){
+    public String generateToken(Integer id,String name){
 
         HashMap<String,Object> claims = new HashMap<>();
+        System.out.println("generateToken:id="+id+";name="+name);
+//        claims.put("cardId",id);
+        claims.put("cardId",id);
         claims.put("name",name);
         //生成token并返回
         String token = Jwts.builder()
@@ -71,4 +75,13 @@ public class UserService {
         return token;
     }
 
+    public User getUserByToken(String token) {
+        String name = (String) Jwts.parser()
+                        .setSigningKey(secretKey.getBytes())
+                        .parseClaimsJws(token).getBody().get("name");
+        User user = userRepository.findOneByName(name);
+        System.out.println(user.getId()+";"+user.getName());
+        System.out.println("user service get user by token");
+        return user;
+    }
 }
