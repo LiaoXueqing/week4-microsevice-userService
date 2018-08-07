@@ -1,6 +1,7 @@
 package com.thoughtworks.training.xueqing.todoservice.security;
 
 import com.google.common.net.HttpHeaders;
+import com.thoughtworks.training.xueqing.todoservice.model.User;
 import com.thoughtworks.training.xueqing.todoservice.service.UserService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,17 @@ public class TodoAuthFilter extends OncePerRequestFilter {
 
         if (!StringUtils.isEmpty(token)) {
             try {
-                String name = (String) Jwts.parser()
-                        .setSigningKey(secretKey.getBytes())
-                        .parseClaimsJws(token).getBody().get("name");
+                User user = userService.getUserByToken(token);
+                if(user !=null) {
 
-                SecurityContextHolder.getContext()
-                        .setAuthentication(
-                                new UsernamePasswordAuthenticationToken(name,
-                                        null,
-                                        Collections.emptyList()));
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(
+                                    new UsernamePasswordAuthenticationToken(user,
+                                            null,
+                                            Collections.emptyList()));
+                }else{
+                    System.out.println(">>>未授权<<<");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

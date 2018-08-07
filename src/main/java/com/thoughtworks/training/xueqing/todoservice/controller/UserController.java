@@ -46,6 +46,9 @@ public class UserController {
     }
     @GetMapping("/{id}")
     public User getOne(@PathVariable Integer id){
+
+
+        System.out.println("get user id id="+id);
         return userService.findById(id);
     }
     @DeleteMapping("/{id}")

@@ -44,6 +44,7 @@ public class UserService {
         String encodedPassword = encoder.encode(user.getPassword());
 
         user.setPassword(encodedPassword);
+        System.out.println(">>>"+user);
         return userRepository.save(user);
     }
 
@@ -63,8 +64,6 @@ public class UserService {
     public String generateToken(Integer id,String name){
 
         HashMap<String,Object> claims = new HashMap<>();
-        System.out.println("generateToken:id="+id+";name="+name);
-//        claims.put("cardId",id);
         claims.put("cardId",id);
         claims.put("name",name);
         //生成token并返回
