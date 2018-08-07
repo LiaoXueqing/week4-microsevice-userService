@@ -33,11 +33,10 @@ public class TodoAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (!StringUtils.isEmpty(token)) {
             try {
-                User user = userService.getUserByToken(token);
+                User user = User.fromToken(token);
                 if(user !=null) {
 
                     SecurityContextHolder.getContext()

@@ -39,12 +39,10 @@ public class UserService {
     }
 
     public User save(User user) {
-    //加密密码
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(user.getPassword());
 
         user.setPassword(encodedPassword);
-        System.out.println(">>>"+user);
         return userRepository.save(user);
     }
 
@@ -72,15 +70,5 @@ public class UserService {
                 .signWith(SignatureAlgorithm.HS512,secretKey.getBytes())
                 .compact();
         return token;
-    }
-
-    public User getUserByToken(String token) {
-        String name = (String) Jwts.parser()
-                        .setSigningKey(secretKey.getBytes())
-                        .parseClaimsJws(token).getBody().get("name");
-        User user = userRepository.findOneByName(name);
-        System.out.println(user.getId()+";"+user.getName());
-        System.out.println("user service get user by token");
-        return user;
     }
 }
