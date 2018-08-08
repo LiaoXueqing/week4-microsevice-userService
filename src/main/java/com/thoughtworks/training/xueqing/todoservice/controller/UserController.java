@@ -27,14 +27,14 @@ public class UserController {
         userService.save(user);
     }
 
-//    @PostMapping("/verifications")
-//    public ResponseEntity verifyToken(@RequestBody String token){
-//        try{
-//            return ResponseEntity.ok(userService.getUserByToken(token));
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-//        }
-//    }
+    @PostMapping("/verifications")
+    public ResponseEntity verifyToken(@RequestBody String token){
+        try{
+            return ResponseEntity.ok(userService.getUserByToken(token));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
     @GetMapping
     public List<User> list(){
         return userService.findAll();

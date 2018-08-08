@@ -15,16 +15,17 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping
-    public String login(@RequestBody User user){
-        boolean verifyFlag = userService.verify(user.getName(), user.getPassword());
-        if(verifyFlag){
-            //生成token
-            User loggedUser = userService.findByName(user.getName());
-            String token = userService.generateToken(loggedUser.getId(),loggedUser.getName());
-            System.out.println("------token------"+token);
-            return token;
-        }
-        return null;
+    public User login(@RequestBody User user){
+        return userService.verify(user.getName(), user.getPassword());
+//        boolean verifyFlag = userService.verify(user.getName(), user.getPassword());
+//        if(verifyFlag){
+//            //生成token
+//            User loggedUser = userService.findByName(user.getName());
+//            String token = userService.generateToken(loggedUser.getId(),loggedUser.getName());
+//            System.out.println("------token------"+token);
+//            return token;
+//        }
+//        return null;
     }
 
 }

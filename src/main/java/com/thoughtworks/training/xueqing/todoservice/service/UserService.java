@@ -50,13 +50,19 @@ public class UserService {
         userRepository.delete(id);
     }
 
-    public boolean verify(String name, String password) {
+    public User verify(String name, String password) {
         Optional<User> user = userRepository.findByNameEquals(name);
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-        //验证密码是否正确
-        boolean matches = encoder
-                .matches(password,user.get().getPassword());
-        return matches;
+        if(user.isPresent()) {
+            //验证密码是否正确
+            boolean matches = encoder
+                    .matches(password, user.get().getPassword());
+            if (matches) {
+                return user.get();
+            }
+
+        }
+        return null;
     }
 
     public String generateToken(Integer id,String name){
@@ -70,5 +76,12 @@ public class UserService {
                 .signWith(SignatureAlgorithm.HS512,secretKey.getBytes())
                 .compact();
         return token;
+    }
+
+    public User getUserByToken(String token) {
+        String[] tokens = token.split(":");
+        User user = userRepository.findByNameEquals(tokens[1]).get();
+
+        return user;
     }
 }
