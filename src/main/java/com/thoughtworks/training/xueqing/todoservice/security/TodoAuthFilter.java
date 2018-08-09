@@ -3,7 +3,6 @@ package com.thoughtworks.training.xueqing.todoservice.security;
 import com.google.common.net.HttpHeaders;
 import com.thoughtworks.training.xueqing.todoservice.model.User;
 import com.thoughtworks.training.xueqing.todoservice.service.UserService;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +31,7 @@ public class TodoAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+        System.out.println("user service request---"+request);
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (!StringUtils.isEmpty(token)) {

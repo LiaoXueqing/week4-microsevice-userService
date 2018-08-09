@@ -13,11 +13,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
-apply plugin: 'pmd'
 
-group = 'com.thoughtworks.training.xueqing'
+
+group = 'com.thoughtworks.training.xueqing.todoservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -25,11 +23,18 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	springCloudVersion = 'Edgware.SR4'
+}
+
 dependencies {
     compile('mysql:mysql-connector-java')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.cloud:spring-cloud-starter-feign')
+	compile('org.springframework.cloud:spring-cloud-starter-consul-discovery')
 	compile 'javax.xml.bind:jaxb-api:2.3.0'
 	compile 'io.jsonwebtoken:jjwt:0.9.1'
 	compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
@@ -40,17 +45,9 @@ dependencies {
 	compile('org.flywaydb:flyway-core:5.0.7')
 	runtime('com.h2database:h2')
 }
-tasks.withType(Checkstyle) {
-	reports {
-		xml.enabled false
-		html.enabled true
-//		html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
-tasks.withType(FindBugs) {
-	reports {
-		xml.enabled false
-		html.enabled true
-//		html.stylesheet resources.text.fromFile('config/xsl/findbugs-custom.xsl')
-	}
-}
+
