@@ -23,8 +23,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public void save(@RequestBody User user){
-        userService.save(user);
+    public User save(@RequestBody User user){
+        return userService.save(user);
     }
 
     @PostMapping("/verifications")
@@ -40,8 +40,10 @@ public class UserController {
         return userService.findAll();
     }
     @GetMapping("/logged")
-    public User getLoggedUser(Principal user){
-        return userService.findByName(user.getName());
+    public User getLoggedUser(){
+        User loggedUser = userService.findByName();
+        System.out.println(loggedUser.getName());
+        return loggedUser;
     }
     @GetMapping("/{id}")
     public User getOne(@PathVariable Integer id){
